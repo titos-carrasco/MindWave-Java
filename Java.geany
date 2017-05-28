@@ -1,0 +1,49 @@
+[file_prefs]
+final_new_line=true
+ensure_convert_new_lines=true
+strip_trailing_spaces=true
+replace_tabs=true
+
+[indentation]
+indent_width=4
+indent_type=0
+indent_hard_tab_width=8
+detect_indent=false
+detect_indent_width=false
+indent_mode=1
+
+[project]
+name=MindWave
+base_path=/home/roberto/Projects/GitHub/MindWave-Java
+description=
+file_patterns=
+
+[long line marker]
+long_line_behaviour=1
+long_line_column=78
+
+[files]
+current_page=-1
+
+[build-menu]
+JavaFT_00_LB=_Compile
+JavaFT_00_CM=javac -d %p/bin -s %p/src -cp "%p/bin:/usr/share/java/RXTXcomm.jar" -sourcepath "%p/src" "%f"
+JavaFT_00_WD=
+filetypes=Java;
+JavaFT_01_LB=
+JavaFT_01_CM=
+JavaFT_01_WD=
+EX_00_LB=_Execute
+EX_00_CM=java -cp "%p/bin:/usr/share/java/RXTXcomm.jar" "%e"
+EX_00_WD=
+NF_03_LB=JavaDoc
+NF_03_CM=javadoc -sourcepath "%p/src" -d "%p/javadoc" -classpath "%p/bin:/usr/share/java/RXTXcomm.jar" -encoding UTF-8 -charset UTF-8 -docencoding UTF-8 rcr.mindwave rcr.utils
+NF_03_WD=
+
+[editor]
+line_wrapping=false
+line_break_column=78
+auto_continue_multiline=false
+
+[VTE]
+last_dir=/home/roberto/Projects

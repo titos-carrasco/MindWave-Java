@@ -12,6 +12,17 @@ import rcr.utils.Serial;
 import rcr.utils.SerialTimeoutException;
 import rcr.utils.Utils;
 
+/**
+ * Clase para interactuar con el MindWave de NeuroSky (Brainwave Sensing Headset).
+ * Revisar detalles en:
+ * <ul>
+ *  <li>NeuroSky Brainwave Sensing Headset (https://store.neurosky.com/pages/mindwave)</li>
+ *  <li>Developer Tools (https://store.neurosky.com/collections/developer-tools)
+ *  <li>ThinkGear Serial Stream Guide (http://developer.neurosky.com/docs/doku.php?id=thinkgear_communications_protocol)
+ * </ul>
+ * @author Roberto Carrasco
+ */
+
 public class MindWave implements Runnable {
     class DataAndError {
         byte[] data;
@@ -40,6 +51,14 @@ public class MindWave implements Runnable {
     /** controla tiempo de vida del thread */
     private boolean trunning;
 
+    /**
+     * Crea instancia del objeto para interactuar con el headset
+     *
+     * @param port puerta serial a utilizar para la conexión
+     * @param timeout timeout para las acciones
+     * @param hgid identificador único del headset (está en donde se inserta la pila)
+     *             y es un número hexa de 4 dígitos. Utiliza 0x0000 para buscar
+     */
     public MindWave( String port, int timeout, int ghid) {
         this.port = port;
         this.timeout = timeout;
@@ -50,6 +69,11 @@ public class MindWave implements Runnable {
         hmwd = new HMindWaveData( (short)0, (short)0, (short)0, (short)0, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
     }
 
+    /**
+     * Abre la conexión hacia el headset
+     *
+     * @return boolean True si se pudo conectas, False en caso contrario
+     */
     public boolean connect() {
         if( connected ) {
             System.out.println( "MindWave Connect(): Ya se encuentra conectado a " + port );
@@ -203,6 +227,9 @@ public class MindWave implements Runnable {
         }
     }
 
+    /**
+     * Desconecta la conexión con el headset
+     */
     public void disconnect( ) {
         if( connected ) {
             System.out.print( "MindWave Disconnect(): Deteniendo Tarea => " );
@@ -228,14 +255,29 @@ public class MindWave implements Runnable {
         }
     }
 
+    /**
+     * Verifica si se está conectado al headset
+     *
+     * @return boolean True si está conectado, False en caso contrario
+     */
     public boolean isConnected() {
         return connected;
     }
 
+    /**
+     * Retorna el Global Headset ID como un string hexadecimal
+     *
+     * @return string el Global Headset ID
+     */
     public String getGlobalHeadsetID() {
         return String.format( "%02X%02X", ghid_high, ghid_low );
     }
 
+    /**
+     * Retorna la última data enviada por el headset
+     *
+     * @return HMindWaveData clase con cada uno de los elementos enviados por el headset
+     */
     public HMindWaveData getMindWaveData() {
         synchronized( this ) {
             return new HMindWaveData( hmwd.poorSignalQuality, hmwd.attentionESense, hmwd.meditationESense, hmwd.blinkStrength,

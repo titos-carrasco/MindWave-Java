@@ -4,7 +4,7 @@ import rcr.utils.Utils;
 
 class TestConsola {
     public static void main( String [] args ) throws Exception {
-        MindWave mw = new MindWave( "/dev/ttyUSB0", 1000, 0xF64F );
+        MindWave mw = new MindWave( "/dev/ttyUSB0", 1000, 0x0000 );
         if( mw.connect() ) {
             for( int i=0; i<1000; i++ ) {
                 HMindWaveData mwd = mw.getMindWaveData();
